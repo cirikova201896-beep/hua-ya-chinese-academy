@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Образование | Хуа Я</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === КНОПКА СО ЗВЁЗДАМИ === */
+        .star-btn {
+            position: relative;
+            padding: 12px 35px;
+            background: #8f1e38;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            border: 3px solid #8f1e38;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #8f1e388c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+            pointer-events: none;
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #8f1e38;
+            box-shadow: 0 0 25px #8f1e388c;
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn .fil0 { fill: #fffdef; }
+
+        /* === СТИЛИ ДЛЯ СТРАНИЦЫ ОБРАЗОВАНИЕ === */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/222.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 200px 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .levels-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .level-card {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .level-card:hover {
+            border-color: #8f1e38;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(143, 30, 56, 0.15);
+        }
+
+        .level-card__number {
+            font-size: 56px;
+            font-weight: 900;
+            color: #8f1e38;
+            margin-bottom: 15px;
+        }
+
+        .level-card__title {
+            font-size: 22px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        .level-card__text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .programs-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .program-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .program-card__image {
+            width: 100%;
+            height: 250px;
+            background: #f0f0f0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .program-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .program-card__content {
+            padding: 30px;
+        }
+
+        .program-card__title {
+            font-size: 24px;
+            color: #8f1e38;
+            margin-bottom: 15px;
+        }
+
+        .program-card__text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .program-card__list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .program-card__list li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .program-card__list li:last-child {
+            border-bottom: none;
+        }
+
+        .methodology-section {
+            padding: 80px 0;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .methodology-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .methodology-text h3 {
+            font-size: 32px;
+            color: #8f1e38;
+            margin-bottom: 25px;
+        }
+
+        .methodology-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .methodology-image {
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .methodology-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #8f1e38 0%, #a72542 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-item__number {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            
+        }
+
+        .stat-item__label {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            background: #fff;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА САЙТА ==================== -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="images/ЛОГОТИП1.png" alt="Логотип Академии Хуа Я">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Главная</a></li>
+                    <li><a href="about.html" class="nav__link">Об Академии</a></li>
+                    <li><a href="history.html" class="nav__link">История</a></li>
+                    <li><a href="staff.html" class="nav__link">Преподаватели</a></li>
+                    <li><a href="education.html" class="nav__link">Образование</a></li>
+                    <li><a href="directions.html" class="nav__link">Направления</a></li>
+                    <li><a href="institutes.html" class="nav__link">Институты</a></li>
+                    <li><a href="applicants.html" class="nav__link">Поступающим</a></li>
+                    <li><a href="tuition.html" class="nav__link">Стоимость</a></li>
+                    <li><a href="students.html" class="nav__link">Студентам</a></li>
+                    <li><a href="employees.html" class="nav__link">Сотруднику</a></li>
+                    <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+78001234567" class="phone">8 (800) 123-45-67</a>
+                <span>г. Москва, ул. Китайская, 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Образовательные программы</h1>
+            <p>Комплексный подход к изучению китайского языка для всех возрастов и уровней подготовки</p>
+        </div>
+    </section>
+
+    <!-- ==================== УРОВНИ HSK ==================== -->
+    <section class="levels-section">
+        <div class="container">
+            <h2 class="text-center" style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Уровни владения языком HSK</h2>
+            <p class="text-center" style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto 50px;">
+                HSK (Hanyu Shuiping Kaoshi) — международный экзамен по китайскому языку, состоящий из 6 уровней
+            </p>
+            
+            <div class="levels-grid">
+                <div class="level-card">
+                    <div class="level-card__number">HSK 1</div>
+                    <h3 class="level-card__title">Начальный уровень</h3>
+                    <p class="level-card__text">
+                        Понимание и использование простых фраз, знакомство с базовой грамматикой и 150 иероглифами.
+                    </p>
+                </div>
+
+                <div class="level-card">
+                    <div class="level-card__number">HSK 2</div>
+                    <h3 class="level-card__title">Элементарный уровень</h3>
+                    <p class="level-card__text">
+                        Общение на простые бытовые темы, знание 300 иероглифов и базовых грамматических конструкций.
+                    </p>
+                </div>
+
+                <div class="level-card">
+                    <div class="level-card__number">HSK 3</div>
+                    <h3 class="level-card__title">Средний уровень</h3>
+                    <p class="level-card__text">
+                        Свободное общение в большинстве повседневных ситуаций, знание 600 иероглифов.
+                    </p>
+                </div>
+
+                <div class="level-card">
+                    <div class="level-card__number">HSK 4</div>
+                    <h3 class="level-card__title">Выше среднего</h3>
+                    <p class="level-card__text">
+                        Общение на широкий круг тем, понимание сложных текстов, знание 1200 иероглифов.
+                    </p>
+                </div>
+
+                <div class="level-card">
+                    <div class="level-card__number">HSK 5</div>
+                    <h3 class="level-card__title">Продвинутый уровень</h3>
+                    <p class="level-card__text">
+                        Чтение газет и журналов, просмотр фильмов, знание 2500 иероглифов.
+                    </p>
+                </div>
+
+                <div class="level-card">
+                    <div class="level-card__number">HSK 6</div>
+                    <h3 class="level-card__title">Свободное владение</h3>
+                    <p class="level-card__text">
+                        Полное понимание устной и письменной речи, знание более 5000 иероглифов.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ ==================== -->
+    <section class="programs-section">
+        <div class="container">
+            <h2 class="text-center" style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Наши образовательные программы</h2>
+            <p class="text-center" style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto 50px;">
+                Выберите программу, которая соответствует вашим целям и уровню подготовки
+            </p>
+            
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-card__image">
+                        <img src="images/333.jpg" alt="Детские группы">
+                    </div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Детские группы (6-12 лет)</h3>
+                        <p class="program-card__text">
+                            Игровая методика обучения для детей. Яркие учебные материалы, интерактивные задания, 
+                            творческие проекты и культурные мероприятия. Дети изучают язык через игру, песни, 
+                            рисование иероглифов и знакомство с китайскими традициями.
+                        </p>
+                        <ul class="program-card__list">
+                            <li>📚 Интерактивные учебники с иллюстрациями</li>
+                            <li>🎨 Творческие мастерские по каллиграфии</li>
+                            <li>🎭 Театральные постановки на китайском</li>
+                            <li>🏮 Празднование китайских праздников</li>
+                        </ul>
+                        <a href="directions.html" class="star-btn">
+                            Подробнее
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-card__image">
+                        <img src="images/444.jpg" alt="Подростковые группы">
+                    </div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Подростковые группы (13-17 лет)</h3>
+                        <p class="program-card__text">
+                            Подготовка к экзаменам HSK, углубленное изучение грамматики, 
+                            разговорная практика с носителями языка. Программа включает 
+                            подготовку к поступлению в китайские вузы и участие в языковых олимпиадах.
+                        </p>
+                        <ul class="program-card__list">
+                            <li>📝 Подготовка к международным экзаменам HSK</li>
+                            <li>🗣️ Разговорные клубы с носителями</li>
+                            <li>🎓 Подготовка к поступлению в вузы Китая</li>
+                            <li>🏆 Участие в олимпиадах и конкурсах</li>
+                        </ul>
+                        <a href="directions.html" class="star-btn">
+                            Подробнее
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-card__image">
+                        <img src="images/555.jpeg" alt="Взрослые группы">
+                    </div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Взрослые группы (18+)</h3>
+                        <p class="program-card__text">
+                            Гибкий график занятий для работающих специалистов. 
+                            Изучение языка для путешествий, бизнеса или личного развития. 
+                            Вечерние и выходные группы, онлайн-формат обучения.
+                        </p>
+                        <ul class="program-card__list">
+                            <li>⏰ Гибкий график (вечер/выходные)</li>
+                            <li>💼 Бизнес-китайский для профессионалов</li>
+                            <li>✈️ Китайский для путешествий</li>
+                            <li>💻 Онлайн-формат обучения</li>
+                        </ul>
+                        <a href="directions.html" class="star-btn">
+                            Подробнее
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-card__image">
+                        <img src="images/666.jpg" alt="Бизнес-китайский">
+                    </div>
+                    <div class="program-card__content">
+                        <h3 class="program-card__title">Бизнес-китайский</h3>
+                        <p class="program-card__text">
+                            Специализированная программа для предпринимателей и специалистов, 
+                            работающих с китайскими партнёрами. Деловая лексика, этикет, 
+                            ведение переговоров и документооборота на китайском языке.
+                        </p>
+                        <ul class="program-card__list">
+                            <li>📊 Деловая лексика и терминология</li>
+                            <li>🤝 Этикет делового общения</li>
+                            <li>📝 Документооборот на китайском</li>
+                            <li>💼 Ведение переговоров</li>
+                        </ul>
+                        <a href="directions.html" class="star-btn">
+                            Подробнее
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== МЕТОДИКА ОБУЧЕНИЯ ==================== -->
+    <section class="methodology-section">
+        <div class="container">
+            <h2 class="text-center" style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Наша методика обучения</h2>
+            <p class="text-center" style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto 50px;">
+                Коммуникативный подход с элементами погружения в языковую среду
+            </p>
+            
+            <div class="methodology-content">
+                <div class="methodology-text">
+                    <h3>Эффективное изучение языка</h3>
+                    <p>
+                        В Академии «Хуа Я» мы используем проверенную коммуникативную методику, 
+                        которая позволяет начать говорить на китайском уже с первых занятий. 
+                        Наши преподаватели — носители языка из разных провинций Китая, 
+                        что позволяет студентам познакомиться с различными диалектами и 
+                        культурными особенностями.
+                    </p>
+                    <p>
+                        Каждый урок сочетает в себе изучение грамматики, расширение словарного 
+                        запаса, практику аудирования и разговорную речь. Мы используем 
+                        современные цифровые платформы, интерактивные учебники и 
+                        мультимедийные материалы для максимального вовлечения студентов 
+                        в учебный процесс.
+                    </p>
+                    <p>
+                        Особое внимание уделяется постановке правильного произношения и тонов — 
+                        фундаментальных аспектов китайского языка. Регулярная практика с 
+                        носителями языка помогает преодолеть языковой барьер и обрести 
+                        уверенность в общении.
+                    </p>
+                    <a href="staff.html" class="star-btn">
+                        Наши преподаватели
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+                <div class="methodology-image">
+                    <img src="images/777.jpg" alt="Методика обучения">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== СТАТИСТИКА ==================== -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 style="font-size: 36px; margin-bottom: 20px; color: #fff;">Наши достижения</h2>
+            <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto 50px;">
+                Более 10 лет успешной работы в области преподавания китайского языка
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-item__number">5000+</div>
+                    <div class="stat-item__label">Выпускников</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-item__number">95%</div>
+                    <div class="stat-item__label">Сдают HSK успешно</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-item__number">50+</div>
+                    <div class="stat-item__label">Преподавателей</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-item__number">100+</div>
+                    <div class="stat-item__label">Групп ежегодно</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Готовы начать обучение?</h2>
+            <p>
+                Запишитесь на бесплатное тестирование уровня и консультацию с преподавателем. 
+                Мы поможем подобрать оптимальную программу обучения для достижения ваших целей.
+            </p>
+            
+            <a href="applicants.html" class="star-btn">
+                Записаться на тестирование
+                <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== ПОДВАЛ ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h4 class="footer__title">Академия «Хуа Я»</h4>
+                    <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                        Образовательный центр нового поколения. 
+                        Мы открываем двери в Азию для тех, кто хочет развиваться.
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer__title">Обучение</h4>
+                    <ul class="footer__list">
+                        <li><a href="directions.html">Направления подготовки</a></li>
+                        <li><a href="institutes.html">Институты и школы</a></li>
+                        <li><a href="tuition.html">Стоимость обучения</a></li>
+                        <li><a href="applicants.html">Абитуриенту</a></li>
+                        <li><a href="employees.html">Преподавателям</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Студентам</h4>
+                    <ul class="footer__list">
+                        <li><a href="useful_info.html">ЭОР и Портфолио</a></li>
+                        <li><a href="extracurricular.html">Внеучебная деятельность</a></li>
+                        <li><a href="students.html">Расписание</a></li>
+                        <li><a href="history.html">Традиции</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="footer__list">
+                        <li>г. Москва, ул. Китайская, д. 1</li>
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@huaya.ru">info@huaya.ru</a></li>
+                        <li>Пн-Пт: 9:00 - 20:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                &copy; 2026 Академия китайского языка «Хуа Я». Все права защищены. <br>
+                Сайт создан в учебных целях.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

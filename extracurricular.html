@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Внеучебная деятельность | Хуа Я</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === КНОПКА СО ЗВЁЗДАМИ === */
+        .star-btn {
+            position: relative;
+            padding: 12px 35px;
+            background: #8f1e38;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            border: 3px solid #8f1e38;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #8f1e388c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+            pointer-events: none;
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #8f1e38;
+            box-shadow: 0 0 25px #8f1e388c;
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn .fil0 { fill: #fffdef; }
+
+        /* === СТИЛИ ДЛЯ СТРАНИЦЫ ВНЕУЧЕБНАЯ ДЕЯТЕЛЬНОСТЬ === */
+        .clubs-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .club-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .club-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .club-card__image {
+            width: 100%;
+            height: 250px;
+            background: #f0f0f0;
+        }
+
+        .club-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .club-card__content {
+            padding: 25px;
+        }
+
+        .club-card__title {
+            font-size: 22px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        .club-card__text {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .events-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .event-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            display: flex;
+            gap: 25px;
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .event-card__date {
+            min-width: 100px;
+            text-align: center;
+            padding: 15px;
+            background: #8f1e38;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .event-card__day {
+            font-size: 32px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .event-card__month {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .event-card__content {
+            flex: 1;
+        }
+
+        .event-card__title {
+            font-size: 20px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .event-card__text {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .achievements-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #8f1e38 0%, #a72542 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .achievement-item {
+            text-align: center;
+        }
+
+        .achievement-item__number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .achievement-item__text {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА САЙТА ==================== -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="images/ЛОГОТИП1.png" alt="Логотип Академии Хуа Я">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Главная</a></li>
+                    <li><a href="about.html" class="nav__link">Об Академии</a></li>
+                    <li><a href="history.html" class="nav__link">История</a></li>
+                    <li><a href="staff.html" class="nav__link">Преподаватели</a></li>
+                    <li><a href="education.html" class="nav__link">Образование</a></li>
+                    <li><a href="directions.html" class="nav__link">Направления</a></li>
+                    <li><a href="institutes.html" class="nav__link">Институты</a></li>
+                    <li><a href="applicants.html" class="nav__link">Поступающим</a></li>
+                    <li><a href="tuition.html" class="nav__link">Стоимость</a></li>
+                    <li><a href="students.html" class="nav__link">Студентам</a></li>
+                    <li><a href="employees.html" class="nav__link">Сотруднику</a></li>
+                    <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+78001234567" class="phone">8 (800) 123-45-67</a>
+                <span>г. Москва, ул. Китайская, 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== -->
+    <section class="page-header" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/1111.jpg'); background-size: cover; background-position: center; padding: 200px 0; color: #fff; text-align: center;">
+        <div class="container">
+            <h1 style="font-size: 48px; margin-bottom: 20px; color: #fff;">Внеучебная деятельность</h1>
+            <p style="font-size: 20px; max-width: 800px; margin: 0 auto; opacity: 0.95;">
+                Погружение в китайскую культуру через клубы, мероприятия и творческие проекты
+            </p>
+        </div>
+    </section>
+
+    <!-- ==================== КЛУБЫ И СЕКЦИИ ==================== -->
+    <section class="clubs-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Наши клубы и секции</h2>
+            <p style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto 50px;">
+                Присоединяйтесь к одному из наших клубов и найдите единомышленников для совместного изучения китайского языка и культуры
+            </p>
+            
+            <div class="clubs-grid">
+                <div class="club-card">
+                    <div class="club-card__image">
+                        <img src="images/2222.jpg" alt="Клуб китайской культуры">
+                    </div>
+                    <div class="club-card__content">
+                        <h3 class="club-card__title">Клуб китайской культуры</h3>
+                        <p class="club-card__text">
+                            Регулярные встречи, посвященные традициям, праздникам и обычаям Китая. 
+                            Изучаем чайные церемонии, каллиграфию, живопись гохуа и традиционную музыку.
+                        </p>
+                        <a href="contacts.html" class="star-btn">
+                            Присоединиться
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="club-card">
+                    <div class="club-card__image">
+                        <img src="images/3333.jpg" alt="Разговорный клуб">
+                    </div>
+                    <div class="club-card__content">
+                        <h3 class="club-card__title">Разговорный клуб</h3>
+                        <p class="club-card__text">
+                            Еженедельные встречи для практики разговорного китайского языка 
+                            в неформальной обстановке. Обсуждаем фильмы, книги, новости и актуальные темы.
+                        </p>
+                        <a href="contacts.html" class="star-btn">
+                            Присоединиться
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="club-card">
+                    <div class="club-card__image">
+                        <img src="images/4444.jpg" alt="Киноклуб">
+                    </div>
+                    <div class="club-card__content">
+                        <h3 class="club-card__title">Киноклуб</h3>
+                        <p class="club-card__text">
+                            Просмотр и обсуждение китайских фильмов и сериалов с субтитрами. 
+                            Анализируем сюжет, культуру и языковые особенности через киноискусство.
+                        </p>
+                        <a href="contacts.html" class="star-btn">
+                            Присоединиться
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="club-card">
+                    <div class="club-card__image">
+                        <img src="images/5555.png" alt="Каллиграфия">
+                    </div>
+                    <div class="club-card__content">
+                        <h3 class="club-card__title">Клуб каллиграфии</h3>
+                        <p class="club-card__text">
+                            Мастер-классы по китайской каллиграфии. Изучаем пять основных стилей 
+                            написания иероглифов, работаем с традиционными материалами.
+                        </p>
+                        <a href="contacts.html" class="star-btn">
+                            Присоединиться
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="club-card">
+                    <div class="club-card__image">
+                        <img src="images/6666.jpg" alt="Кулинарный клуб">
+                    </div>
+                    <div class="club-card__content">
+                        <h3 class="club-card__title">Кулинарный клуб</h3>
+                        <p class="club-card__text">
+                            Готовим блюда китайской кухни под руководством шеф-поваров. 
+                            Изучаем региональные особенности кухни и кулинарную терминологию.
+                        </p>
+                        <a href="contacts.html" class="star-btn">
+                            Присоединиться
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="club-card">
+                    <div class="club-card__image">
+                        <img src="images/7777.JPG" alt="Бизнес-клуб">
+                    </div>
+                    <div class="club-card__content">
+                        <h3 class="club-card__title">Бизнес-клуб</h3>
+                        <p class="club-card__text">
+                            Встречи с предпринимателями, работающими с Китаем. 
+                            Обсуждаем бизнес-кейсы, нетворкинг и возможности для сотрудничества.
+                        </p>
+                        <a href="contacts.html" class="star-btn">
+                            Присоединиться
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== МЕРОПРИЯТИЯ ==================== -->
+    <section class="events-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Ближайшие мероприятия</h2>
+            <p style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto 50px;">
+                Участвуйте в наших мероприятиях и погружайтесь в китайскую культуру
+            </p>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-card__date">
+                        <span class="event-card__day">15</span>
+                        <span class="event-card__month">апреля</span>
+                    </div>
+                    <div class="event-card__content">
+                        <h3 class="event-card__title">Праздник Весны</h3>
+                        <p class="event-card__text">
+                            Традиционное празднование Китайского Нового года с концертом, 
+                            мастер-классами и угощениями национальной кухни.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-card__date">
+                        <span class="event-card__day">22</span>
+                        <span class="event-card__month">апреля</span>
+                    </div>
+                    <div class="event-card__content">
+                        <h3 class="event-card__title">День китайской культуры</h3>
+                        <p class="event-card__text">
+                            Открытый день с демонстрацией традиционных искусств: 
+                            каллиграфия, чайная церемония, национальные костюмы.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-card__date">
+                        <span class="event-card__day">5</span>
+                        <span class="event-card__month">мая</span>
+                    </div>
+                    <div class="event-card__content">
+                        <h3 class="event-card__title">Конкурс чтецов</h3>
+                        <p class="event-card__text">
+                            Конкурс на лучшее чтение китайской поэзии. 
+                            Номинации для разных уровней владения языком.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-card__date">
+                        <span class="event-card__day">20</span>
+                        <span class="event-card__month">мая</span>
+                    </div>
+                    <div class="event-card__content">
+                        <h3 class="event-card__title">Бизнес-форум «Россия-Китай»</h3>
+                        <p class="event-card__text">
+                            Встреча предпринимателей и экспертов по вопросам 
+                            российско-китайского экономического сотрудничества.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ДОСТИЖЕНИЯ ==================== -->
+    <section class="achievements-section">
+        <div class="container">
+            <h2 style="font-size: 36px; margin-bottom: 20px; color: #fff;">Наши достижения</h2>
+            <p style="font-size: 18px; max-width: 700px; margin: 0 auto 50px; opacity: 0.95;">
+                Гордимся успехами наших студентов в изучении языка и культуры
+            </p>
+            
+            <div class="achievements-grid">
+                <div class="achievement-item">
+                    <div class="achievement-item__number">500+</div>
+                    <div class="achievement-item__text">Активных участников клубов</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-item__number">50+</div>
+                    <div class="achievement-item__text">Мероприятий в год</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-item__number">100+</div>
+                    <div class="achievement-item__text">Побед в конкурсах</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-item__number">15+</div>
+                    <div class="achievement-item__text">Партнёров в Китае</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ПРИЗЫВ К ДЕЙСТВИЮ ==================== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Хотите стать частью нашего сообщества?</h2>
+            <p>
+                Присоединяйтесь к нашим клубам и участвуйте в мероприятиях! 
+                Это отличный способ улучшить язык, найти друзей и глубже понять китайскую культуру.
+            </p>
+            <a href="contacts.html" class="star-btn">
+                Записаться в клуб
+                <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== ПОДВАЛ ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h4 class="footer__title">Академия «Хуа Я»</h4>
+                    <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                        Образовательный центр нового поколения. 
+                        Мы открываем двери в Азию для тех, кто хочет развиваться.
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer__title">Обучение</h4>
+                    <ul class="footer__list">
+                        <li><a href="directions.html">Направления подготовки</a></li>
+                        <li><a href="institutes.html">Институты и школы</a></li>
+                        <li><a href="tuition.html">Стоимость обучения</a></li>
+                        <li><a href="applicants.html">Абитуриенту</a></li>
+                        <li><a href="employees.html">Преподавателям</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Студентам</h4>
+                    <ul class="footer__list">
+                        <li><a href="useful_info.html">ЭОР и Портфолио</a></li>
+                        <li><a href="extracurricular.html">Внеучебная деятельность</a></li>
+                        <li><a href="students.html">Расписание</a></li>
+                        <li><a href="history.html">Традиции</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="footer__list">
+                        <li>г. Москва, ул. Китайская, д. 1</li>
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@huaya.ru">info@huaya.ru</a></li>
+                        <li>Пн-Пт: 9:00 - 20:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                &copy; 2026 Академия китайского языка «Хуа Я». Все права защищены. <br>
+                Сайт создан в учебных целях.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

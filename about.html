@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Об Академии | Хуа Я</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === КНОПКА СО ЗВЁЗДАМИ === */
+        .star-btn {
+            position: relative;
+            padding: 12px 35px;
+            background: #8f1e38;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            border: 3px solid #8f1e38;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #8f1e388c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+            pointer-events: none;
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #8f1e38;
+            box-shadow: 0 0 25px #8f1e388c;
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn .fil0 { fill: #fffdef; }
+
+        /* === СТИЛИ ДЛЯ СТРАНИЦЫ ABOUT === */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/фон3.png');
+            background-size: cover;
+            background-position: center;
+            padding: 200px 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .about-hero__title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .about-hero__subtitle {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .director-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .director-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .director-photo {
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .director-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .director-info h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 10px;
+        }
+
+        .director-info .director-position {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .director-quote {
+            background: #f8f9fa;
+            border-left: 4px solid #8f1e38;
+            padding: 30px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .director-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .mission-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .mission-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .mission-card__icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: #8f1e38;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 36px;
+        }
+
+        .mission-card__title {
+            font-size: 22px;
+            color: #8f1e38;
+            margin-bottom: 15px;
+        }
+
+        .mission-card__text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .gallery-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item__caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(143, 30, 56, 0.9);
+            color: #fff;
+            padding: 15px;
+            font-size: 14px;
+            transform: translateY(100%);
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover .gallery-item__caption {
+            transform: translateY(0);
+        }
+
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #8f1e38 0%, #a72542 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-item__number {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .stat-item__label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .values-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .values-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .values-text h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 30px;
+        }
+
+        .values-list {
+            list-style: none;
+        }
+
+        .values-list li {
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .values-list li:last-child {
+            border-bottom: none;
+        }
+
+        .values-list li strong {
+            color: #8f1e38;
+        }
+
+        .values-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .values-image {
+            height: 300px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .values-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            background: #fff;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА САЙТА ==================== -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="images/ЛОГОТИП1.png" alt="Логотип Академии Хуа Я">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Главная</a></li>
+                    <li><a href="about.html" class="nav__link">Об Академии</a></li>
+                    <li><a href="history.html" class="nav__link">История</a></li>
+                    <li><a href="staff.html" class="nav__link">Преподаватели</a></li>
+                    <li><a href="education.html" class="nav__link">Образование</a></li>
+                    <li><a href="directions.html" class="nav__link">Направления</a></li>
+                    <li><a href="institutes.html" class="nav__link">Институты</a></li>
+                    <li><a href="applicants.html" class="nav__link">Поступающим</a></li>
+                    <li><a href="tuition.html" class="nav__link">Стоимость</a></li>
+                    <li><a href="students.html" class="nav__link">Студентам</a></li>
+                    <li><a href="employees.html" class="nav__link">Сотруднику</a></li>
+                    <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+78001234567" class="phone">8 (800) 123-45-67</a>
+                <span>г. Москва, ул. Китайская, 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO СЕКЦИЯ ==================== -->
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="about-hero__title">Об Академии «Хуа Я»</h1>
+            <p class="about-hero__subtitle">
+                Ведущий образовательный центр по изучению китайского языка и культуры в России. 
+                Более 10 лет мы помогаем студентам открывать двери в мир китайского языка, 
+                бизнеса и культуры.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==================== СЛОВО ДИРЕКТОРА ==================== -->
+    <section class="director-section">
+        <div class="container">
+            <div class="director-grid">
+                <div class="director-photo">
+                    <img src="images/Ван ли минь.jpg" alt="Директор Академии Хуа Я">
+                </div>
+                <div class="director-info">
+                    <h2>Чон Чонгук</h2>
+                    <p class="director-position">Генеральный директор Академии «Хуа Я»</p>
+                    
+                    <div class="director-quote">
+                        «Изучение китайского языка — это не просто освоение новых слов и грамматики. 
+                        Это погружение в древнейшую культуру, понимание философии Востока и открытие 
+                        безграничных возможностей для личного и профессионального роста. В Академии 
+                        «Хуа Я» мы создали среду, где каждый студент получает индивидуальное внимание 
+                        и поддержку на пути к свободному владению языком.»
+                    </div>
+
+                    <p class="director-text">
+                        Я основал Академию «Хуа Я» в 2013 году с простой мечтой — сделать качественное 
+                        образование по китайскому языку доступным для каждого желающего в России. За эти 
+                        годы мы выросли из небольшой языковой школы в крупный образовательный центр с 
+                        собственными методиками, квалифицированными преподавателями и тысячами успешных 
+                        выпускников.
+                    </p>
+
+                    <p class="director-text">
+                        Наша команда состоит из носителей языка из разных провинций Китая и российских 
+                        специалистов с многолетним опытом преподавания. Мы постоянно совершенствуем наши 
+                        программы, внедряем современные технологии и создаём комфортную атмосферу для 
+                        обучения. Каждый студент для нас — это личность с уникальными целями, и мы 
+                        делаем всё возможное, чтобы помочь их достичь.
+                    </p>
+
+                    <p class="director-text">
+                        Приглашаю вас стать частью нашей академической семьи! Вместе мы откроем для вас 
+                        удивительный мир китайского языка, культуры и возможностей.
+                    </p>
+
+                    <div style="margin-top: 30px;">
+                        <a href="contacts.html" class="star-btn">
+                            Связаться с директором
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== МИССИЯ И ЦЕННОСТИ ==================== -->
+    <section class="mission-section">
+        <div class="container">
+            <h2 class="text-center" style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Наша миссия и ценности</h2>
+            <p style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto 50px; line-height: 1.6;">
+                Мы стремимся сделать изучение китайского языка доступным, эффективным и увлекательным 
+                для каждого студента, независимо от возраста и уровня подготовки.
+            </p>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-card__icon">🎯</div>
+                    <h3 class="mission-card__title">Качество образования</h3>
+                    <p class="mission-card__text">
+                        Собственные методики обучения, разработанные с учётом особенностей 
+                        русского языка и менталитета. Регулярное обновление программ и 
+                        внедрение современных образовательных технологий.
+                    </p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-card__icon">👥</div>
+                    <h3 class="mission-card__title">Индивидуальный подход</h3>
+                    <p class="mission-card__text">
+                        Маленькие группы до 8 человек, персональные рекомендации 
+                        преподавателей, адаптация темпа обучения под возможности 
+                        каждого студента.
+                    </p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-card__icon">🌏</div>
+                    <h3 class="mission-card__title">Погружение в культуру</h3>
+                    <p class="mission-card__text">
+                        Изучаем не только язык, но и культуру, традиции, историю Китая. 
+                        Регулярные культурные мероприятия, встречи с носителями языка, 
+                        поездки в Китай.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== СТАТИСТИКА ==================== -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 style="font-size: 36px; margin-bottom: 20px; color: #fff;">Академия в цифрах</h2>
+            <p style="font-size: 18px; opacity: 0.9; max-width: 700px; margin: 0 auto 50px;">
+                Более 10 лет успешной работы и тысячи довольных студентов
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-item__number">5000+</div>
+                    <div class="stat-item__label">Выпускников</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-item__number">50+</div>
+                    <div class="stat-item__label">Преподавателей</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-item__number">100+</div>
+                    <div class="stat-item__label">Групп ежегодно</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-item__number">98%</div>
+                    <div class="stat-item__label">Рекомендуют нас</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ГАЛЕРЕЯ ==================== -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="text-center" style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Жизнь Академии</h2>
+            <p style="text-align: center; font-size: 18px; color: #666; max-width: 700px; margin: 0 auto 50px;">
+                Учебные занятия, культурные мероприятия и яркие моменты из жизни наших студентов
+            </p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/учебный процесс.jpg" alt="Учебный процесс">
+                    <div class="gallery-item__caption">Учебный процесс</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/мероприятия.jpg" alt="Культурное мероприятие">
+                    <div class="gallery-item__caption">Культурное мероприятие</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/групп занятия.jpg" alt="Групповое занятие">
+                    <div class="gallery-item__caption">Групповое занятие</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/НОВЫЙ ГОД.jpg" alt="Празднование Нового года">
+                    <div class="gallery-item__caption">Празднование Нового года</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/индивидуал занятия.jpg" alt="Индивидуальное занятие">
+                    <div class="gallery-item__caption">Индивидуальное занятие</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/КАЛИГРАФ.jpg" alt="Китайская каллиграфия">
+                    <div class="gallery-item__caption">Китайская каллиграфия</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/выпускники.jpg" alt="Выпускной церемония">
+                    <div class="gallery-item__caption">Выпускной церемония</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/ЕЩЁ ГРУП ЗАНЯТ.jpg" alt="Командная работа">
+                    <div class="gallery-item__caption">Командная работа</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ЦЕННОСТИ ==================== -->
+    <section class="values-section">
+        <div class="container">
+            <div class="values-content">
+                <div class="values-text">
+                    <h2>Наши ценности</h2>
+                    <ul class="values-list">
+                        <li>
+                            <strong>Профессионализм</strong> — Мы работаем только с квалифицированными преподавателями-носителями языка из разных провинций Китая, что позволяет студентам познакомиться с различными диалектами и культурными особенностями.
+                        </li>
+                        <li>
+                            <strong>Доступность</strong> — Делаем качественное образование доступным для всех возрастных групп. У нас учатся дети от 5 лет, школьники, студенты и взрослые профессионалы.
+                        </li>
+                        <li>
+                            <strong>Инновации</strong> — Постоянно внедряем современные образовательные технологии: мобильные приложения для изучения иероглифов, онлайн-платформа для самостоятельной работы, интерактивные упражнения.
+                        </li>
+                        <li>
+                            <strong>Поддержка</strong> — Каждый студент получает персонального куратора, который помогает с организацией учебного процесса, отвечает на вопросы и мотивирует на протяжении всего обучения.
+                        </li>
+                        <li>
+                            <strong>Результат</strong> — Гарантируем видимый прогресс уже после первого месяца занятий. Наши студенты успешно сдают международные экзамены HSK и поступают в китайские вузы.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="values-images">
+                    <div class="values-image">
+                        <img src="images/препод и уч.jpg" alt="Преподаватель с студентами">
+                    </div>
+                    <div class="values-image">
+                        <img src="images/новый класс.jpg" alt="Современный класс">
+                    </div>
+                    <div class="values-image">
+                        <img src="images/чет еще.jpg" alt="Учебный процесс">
+                    </div>
+                    <div class="values-image">
+                        <img src="images/фоннн1.jpg" alt="Групповая работа">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Хотите узнать больше?</h2>
+            <p>
+                Запишитесь на бесплатную консультацию и пробный урок! 
+                Наши специалисты помогут подобрать оптимальную программу обучения 
+                и ответят на все ваши вопросы.
+            </p>
+
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="applicants.html" class="star-btn">
+                    Записаться на пробный урок
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </a>
+
+                <a href="contacts.html" class="star-btn">
+                    Связаться с нами
+                    <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ПОДВАЛ ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h4 class="footer__title">Академия «Хуа Я»</h4>
+                    <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                        Образовательный центр нового поколения. 
+                        Мы открываем двери в Азию для тех, кто хочет развиваться.
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer__title">Обучение</h4>
+                    <ul class="footer__list">
+                        <li><a href="directions.html">Направления подготовки</a></li>
+                        <li><a href="institutes.html">Институты и школы</a></li>
+                        <li><a href="tuition.html">Стоимость обучения</a></li>
+                        <li><a href="applicants.html">Абитуриенту</a></li>
+                        <li><a href="employees.html">Преподавателям</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Студентам</h4>
+                    <ul class="footer__list">
+                        <li><a href="useful_info.html">ЭОР и Портфолио</a></li>
+                        <li><a href="extracurricular.html">Внеучебная деятельность</a></li>
+                        <li><a href="students.html">Расписание</a></li>
+                        <li><a href="history.html">Традиции</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="footer__list">
+                        <li>г. Москва, ул. Китайская, д. 1</li>
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@huaya.ru">info@huaya.ru</a></li>
+                        <li>Пн-Пт: 9:00 - 20:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                &copy; 2026 Академия китайского языка «Хуа Я». Все права защищены. <br>
+                Сайт создан в учебных целях.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

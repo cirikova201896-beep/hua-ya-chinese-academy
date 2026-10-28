@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Направления обучения | Хуа Я</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === КНОПКА СО ЗВЁЗДАМИ === */
+        .star-btn {
+            position: relative;
+            padding: 12px 35px;
+            background: #8f1e38;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            border: 3px solid #8f1e38;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #8f1e388c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+            pointer-events: none;
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #8f1e38;
+            box-shadow: 0 0 25px #8f1e388c;
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn .fil0 { fill: #fffdef; }
+                
+
+        /* === СТИЛИ ДЛЯ СТРАНИЦЫ НАПРАВЛЕНИЯ === */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/направления.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 200px 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .directions-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .direction-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .direction-card:nth-child(even) {
+            background: #fff;
+            border: 2px solid #8f1e38;
+        }
+
+        .direction-card__header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .direction-card__icon {
+            width: 80px;
+            height: 80px;
+            background: #8f1e38;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .direction-card__title {
+            font-size: 32px;
+            color: #8f1e38;
+            margin-bottom: 10px;
+        }
+
+        .direction-card__subtitle {
+            font-size: 18px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .direction-card__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .direction-card__description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .direction-card__details {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #8f1e38;
+        }
+
+        .direction-card__details h4 {
+            font-size: 20px;
+            color: #8f1e38;
+            margin-bottom: 15px;
+        }
+
+        .direction-card__details ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .direction-card__details li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #555;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .direction-card__details li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #8f1e38;
+            font-weight: 700;
+        }
+
+        .direction-card__duration {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .direction-card__duration-item {
+            flex: 1;
+        }
+
+        .direction-card__duration-label {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .direction-card__duration-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #8f1e38;
+        }
+
+        .directions-cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #8f1e38 0%, #a72542 100%);
+            text-align: center;
+            color: #fff;
+        }
+
+        .directions-cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .directions-cta p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.95;
+        }
+
+        .star-btn--light {
+            background: transparent;
+            color: #fff;
+            border: 3px solid #fff;
+        }
+
+        .star-btn--light:hover {
+            background: #fff;
+            color: #8f1e38;
+            border-color: #fff;
+        }
+
+        .star-btn--light .fil0 {
+            fill: #fff;
+        }
+
+        .star-btn--light:hover .fil0 {
+            fill: #8f1e38;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА САЙТА ==================== -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="images/ЛОГОТИП1.png" alt="Логотип Академии Хуа Я">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Главная</a></li>
+                    <li><a href="about.html" class="nav__link">Об Академии</a></li>
+                    <li><a href="history.html" class="nav__link">История</a></li>
+                    <li><a href="staff.html" class="nav__link">Преподаватели</a></li>
+                    <li><a href="education.html" class="nav__link">Образование</a></li>
+                    <li><a href="directions.html" class="nav__link">Направления</a></li>
+                    <li><a href="institutes.html" class="nav__link">Институты</a></li>
+                    <li><a href="applicants.html" class="nav__link">Поступающим</a></li>
+                    <li><a href="tuition.html" class="nav__link">Стоимость</a></li>
+                    <li><a href="students.html" class="nav__link">Студентам</a></li>
+                    <li><a href="employees.html" class="nav__link">Сотруднику</a></li>
+                    <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+78001234567" class="phone">8 (800) 123-45-67</a>
+                <span>г. Москва, ул. Китайская, 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Направления обучения</h1>
+            <p>Выберите программу, которая соответствует вашим целям и уровню подготовки. Мы предлагаем комплексный подход к изучению китайского языка для всех возрастов</p>
+        </div>
+    </section>
+
+    <!-- ==================== НАПРАВЛЕНИЯ ==================== -->
+    <section class="directions-section">
+        <div class="container">
+
+            <!-- Направление 1 -->
+            <div class="direction-card">
+                <div class="direction-card__header">
+                    <div class="direction-card__icon">👶</div>
+                    <div>
+                        <h2 class="direction-card__title">Китайский для детей (6-12 лет)</h2>
+                        <p class="direction-card__subtitle">Игровая методика обучения для младших школьников</p>
+                    </div>
+                </div>
+                <div class="direction-card__content">
+                    <div class="direction-card__description">
+                        <p>Наша детская программа разработана с учётом возрастных особенностей младших школьников. Мы используем игровую методику, которая позволяет детям легко усваивать новый материал через игру, творчество и интерактивные задания.</p>
+                        <p>На занятиях дети изучают базовую лексику, простые грамматические конструкции, учатся произносить тоны и писать первые иероглифы. Особое внимание уделяется развитию фонематического слуха и правильного произношения с самого начала обучения.</p>
+                        <p>Каждый урок включает в себя разнообразные активности: песни на китайском языке, рисование иероглифов, ролевые игры, просмотр адаптированных мультфильмов и выполнение творческих проектов. Такой подход помогает поддерживать интерес ребёнка к изучению языка и делает процесс обучения увлекательным.</p>
+                    </div>
+                    <div class="direction-card__details">
+                        <h4>Что входит в программу:</h4>
+                        <ul>
+                            <li>Изучение 200+ базовых иероглифов</li>
+                            <li>Постановка правильного произношения тонов</li>
+                            <li>Базовые грамматические конструкции</li>
+                            <li>Разговорная практика в игровом формате</li>
+                            <li>Творческие проекты и презентации</li>
+                            <li>Подготовка к международным экзаменам YCT</li>
+                        </ul>
+                        <div class="direction-card__duration">
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность</div>
+                                <div class="direction-card__duration-value">2 года</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Занятий в неделю</div>
+                                <div class="direction-card__duration-value">2 раза</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность урока</div>
+                                <div class="direction-card__duration-value">45 минут</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="applicants.html" class="star-btn">
+                        Записаться на курс
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Направление 2 -->
+            <div class="direction-card">
+                <div class="direction-card__header">
+                    <div class="direction-card__icon">🎓</div>
+                    <div>
+                        <h2 class="direction-card__title">Подростковый курс (13-17 лет)</h2>
+                        <p class="direction-card__subtitle">Подготовка к экзаменам и поступлению в вузы Китая</p>
+                    </div>
+                </div>
+                <div class="direction-card__content">
+                    <div class="direction-card__description">
+                        <p>Подростковая программа направлена на систематическое изучение китайского языка с акцентом на подготовку к международным экзаменам HSK и YCT. Курс подходит как для начинающих, так и для продолжающих изучение.</p>
+                        <p>Программа включает углублённое изучение грамматики, расширение словарного запаса, развитие навыков чтения, письма, аудирования и говорения. Особое внимание уделяется подготовке к поступлению в китайские университеты.</p>
+                        <p>Студенты участвуют в проектной деятельности, готовят презентации на китайском языке, участвуют в языковых конкурсах и олимпиадах. По окончании курса студенты получают сертификат академии и рекомендации для поступления в вузы Китая.</p>
+                    </div>
+                    <div class="direction-card__details">
+                        <h4>Что входит в программу:</h4>
+                        <ul>
+                            <li>Подготовка к экзаменам HSK 3-5</li>
+                            <li>Академический китайский для вуза</li>
+                            <li>Написание сочинений и эссе</li>
+                            <li>Презентационные навыки</li>
+                            <li>Помощь в поступлении в вузы Китая</li>
+                            <li>Участие в языковых олимпиадах</li>
+                        </ul>
+                        <div class="direction-card__duration">
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность</div>
+                                <div class="direction-card__duration-value">3 года</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Занятий в неделю</div>
+                                <div class="direction-card__duration-value">3 раза</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность урока</div>
+                                <div class="direction-card__duration-value">60 минут</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="applicants.html" class="star-btn">
+                        Записаться на курс
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Направление 3 -->
+            <div class="direction-card">
+                <div class="direction-card__header">
+                    <div class="direction-card__icon">💼</div>
+                    <div>
+                        <h2 class="direction-card__title">Деловой китайский для взрослых</h2>
+                        <p class="direction-card__subtitle">Профессиональный курс для работы с китайскими партнёрами</p>
+                    </div>
+                </div>
+                <div class="direction-card__content">
+                    <div class="direction-card__description">
+                        <p>Курс делового китайского языка разработан для специалистов, которые работают или планируют работать с китайскими компаниями. Программа охватывает все аспекты деловой коммуникации: от ведения переговоров до написания официальных документов.</p>
+                        <p>Студенты изучают специализированную лексику для различных сфер бизнеса: финансы, маркетинг, логистика, производство, IT. Особое внимание уделяется культурным особенностям ведения бизнеса в Китае и правилам делового этикета.</p>
+                        <p>Курс включает практические занятия по составлению деловых писем, презентаций, контрактов на китайском языке. Студенты участвуют в ролевых играх, имитирующих реальные бизнес-ситуации: переговоры, презентации, телефонные разговоры.</p>
+                    </div>
+                    <div class="direction-card__details">
+                        <h4>Что входит в программу:</h4>
+                        <ul>
+                            <li>Деловая лексика и терминология</li>
+                            <li>Написание деловых писем и документов</li>
+                            <li>Ведение переговоров на китайском</li>
+                            <li>Презентационные навыки</li>
+                            <li>Китайский деловой этикет</li>
+                            <li>Подготовка к рабочим поездкам в Китай</li>
+                        </ul>
+                        <div class="direction-card__duration">
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность</div>
+                                <div class="direction-card__duration-value">1.5 года</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Занятий в неделю</div>
+                                <div class="direction-card__duration-value">2-3 раза</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность урока</div>
+                                <div class="direction-card__duration-value">90 минут</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="applicants.html" class="star-btn">
+                        Записаться на курс
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Направление 4 -->
+            <div class="direction-card">
+                <div class="direction-card__header">
+                    <div class="direction-card__icon">✈️</div>
+                    <div>
+                        <h2 class="direction-card__title">Разговорный китайский для путешествий</h2>
+                        <p class="direction-card__subtitle">Интенсивный курс для туристов и путешественников</p>
+                    </div>
+                </div>
+                <div class="direction-card__content">
+                    <div class="direction-card__description">
+                        <p>Курс разговорного китайского языка для путешествий разработан для тех, кто планирует поездку в Китай и хочет чувствовать себя уверенно в различных ситуациях: в отеле, ресторане, магазине, транспорте, достопримечательностях.</p>
+                        <p>Программа фокусируется на практических навыках общения: студенты учатся задавать вопросы, понимать ответы, ориентироваться в городе, делать покупки, заказывать еду, бронировать билеты и номера в отеле.</p>
+                        <p>Особое внимание уделяется произношению и пониманию речи на слух. Студенты работают с аудиоматериалами, смотрят видео с реальными ситуациями, участвуют в ролевых играх. Курс позволяет за короткое время освоить базовый набор фраз для комфортного путешествия.</p>
+                    </div>
+                    <div class="direction-card__details">
+                        <h4>Что входит в программу:</h4>
+                        <ul>
+                            <li>Базовые фразы для путешествий</li>
+                            <li>Навигация в городе и транспорте</li>
+                            <li>Заказ еды в ресторане</li>
+                            <li>Покупки и торг на рынке</li>
+                            <li>Бронирование отеля и билетов</li>
+                            <li>Экстренные ситуации и помощь</li>
+                        </ul>
+                        <div class="direction-card__duration">
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность</div>
+                                <div class="direction-card__duration-value">3 месяца</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Занятий в неделю</div>
+                                <div class="direction-card__duration-value">2 раза</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность урока</div>
+                                <div class="direction-card__duration-value">60 минут</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="applicants.html" class="star-btn">
+                        Записаться на курс
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Направление 5 -->
+            <div class="direction-card">
+                <div class="direction-card__header">
+                    <div class="direction-card__icon">📚</div>
+                    <div>
+                        <h2 class="direction-card__title">Подготовка к экзаменам HSK</h2>
+                        <p class="direction-card__subtitle">Систематическая подготовка к международным экзаменам</p>
+                    </div>
+                </div>
+                <div class="direction-card__content">
+                    <div class="direction-card__description">
+                        <p>HSK (Hanyu Shuiping Kaoshi) — международный экзамен по китайскому языку, который признаётся во всём мире. Наш курс подготовки к HSK охватывает все уровни от HSK 1 до HSK 6.</p>
+                        <p>Программа включает систематическое изучение лексики, грамматики, иероглифики, а также интенсивную практику всех частей экзамена: аудирование, чтение, письмо. Студенты работают с официальными материалами экзаменов предыдущих лет.</p>
+                        <p>Каждый студент получает индивидуальный план подготовки в зависимости от текущего уровня и целевого результата. Проводятся регулярные пробные экзамены для отслеживания прогресса и выявления слабых мест.</p>
+                    </div>
+                    <div class="direction-card__details">
+                        <h4>Что входит в программу:</h4>
+                        <ul>
+                            <li>Изучение лексики для всех уровней HSK</li>
+                            <li>Грамматика и иероглифика</li>
+                            <li>Практика аудирования и чтения</li>
+                            <li>Написание иероглифов на время</li>
+                            <li>Пробные экзамены каждый месяц</li>
+                            <li>Индивидуальная работа над ошибками</li>
+                        </ul>
+                        <div class="direction-card__duration">
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность</div>
+                                <div class="direction-card__duration-value">6-12 месяцев</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Занятий в неделю</div>
+                                <div class="direction-card__duration-value">3-4 раза</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность урока</div>
+                                <div class="direction-card__duration-value">90 минут</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="applicants.html" class="star-btn">
+                        Записаться на курс
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Направление 6 -->
+            <div class="direction-card">
+                <div class="direction-card__header">
+                    <div class="direction-card__icon">👤</div>
+                    <div>
+                        <h2 class="direction-card__title">Индивидуальные занятия</h2>
+                        <p class="direction-card__subtitle">Персональная программа под ваши цели и график</p>
+                    </div>
+                </div>
+                <div class="direction-card__content">
+                    <div class="direction-card__description">
+                        <p>Индивидуальные занятия — это максимально персонализированный подход к изучению китайского языка. Программа составляется индивидуально с учётом целей, уровня подготовки, графика и предпочтений студента.</p>
+                        <p>Студент может выбрать тематику занятий: общий китайский, деловой, для путешествий, подготовка к экзаменам, академический язык для учёбы в вузе. Преподаватель адаптирует материал под конкретные потребности.</p>
+                        <p>Гибкий график занятий позволяет заниматься в удобное время, включая выходные и вечерние часы. Возможность переноса занятий без потери оплаты. Индивидуальный темп обучения — можно двигаться быстрее или медленнее в зависимости от усвоения материала.</p>
+                    </div>
+                    <div class="direction-card__details">
+                        <h4>Преимущества формата:</h4>
+                        <ul>
+                            <li>Персональная программа обучения</li>
+                            <li>Гибкий график занятий</li>
+                            <li>Фокус на ваших целях</li>
+                            <li>Индивидуальный темп обучения</li>
+                            <li>Возможность переноса занятий</li>
+                            <li>Прямая обратная связь от преподавателя</li>
+                        </ul>
+                        <div class="direction-card__duration">
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность</div>
+                                <div class="direction-card__duration-value">Индивидуально</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Занятий в неделю</div>
+                                <div class="direction-card__duration-value">1-5 раз</div>
+                            </div>
+                            <div class="direction-card__duration-item">
+                                <div class="direction-card__duration-label">Длительность урока</div>
+                                <div class="direction-card__duration-value">60-90 минут</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="applicants.html" class="star-btn">
+                        Записаться на курс
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="directions-cta">
+        <div class="container">
+            <h2>Не знаете, какое направление выбрать?</h2>
+            <p>Запишитесь на бесплатную консультацию с нашим методистом. Мы поможем определить ваш текущий уровень, обсудим цели обучения и подберём оптимальную программу.</p>
+            <a href="applicants.html" class="star-btn star-btn--light">
+                Записаться на консультацию
+                <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== ПОДВАЛ ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h4 class="footer__title">Академия «Хуа Я»</h4>
+                    <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                        Образовательный центр нового поколения. 
+                        Мы открываем двери в Азию для тех, кто хочет развиваться.
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer__title">Обучение</h4>
+                    <ul class="footer__list">
+                        <li><a href="directions.html">Направления подготовки</a></li>
+                        <li><a href="institutes.html">Институты и школы</a></li>
+                        <li><a href="tuition.html">Стоимость обучения</a></li>
+                        <li><a href="applicants.html">Абитуриенту</a></li>
+                        <li><a href="employees.html">Преподавателям</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Студентам</h4>
+                    <ul class="footer__list">
+                        <li><a href="useful_info.html">ЭОР и Портфолио</a></li>
+                        <li><a href="extracurricular.html">Внеучебная деятельность</a></li>
+                        <li><a href="students.html">Расписание</a></li>
+                        <li><a href="history.html">Традиции</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="footer__list">
+                        <li>г. Москва, ул. Китайская, д. 1</li>
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@huaya.ru">info@huaya.ru</a></li>
+                        <li>Пн-Пт: 9:00 - 20:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                &copy; 2026 Академия китайского языка «Хуа Я». Все права защищены. <br>
+                Сайт создан в учебных целях.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

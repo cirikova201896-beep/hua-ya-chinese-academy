@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Преподаватели | Хуа Я</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === КНОПКА СО ЗВЁЗДАМИ === */
+        .star-btn {
+            position: relative;
+            padding: 12px 35px;
+            background: #8f1e38;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            border: 3px solid #8f1e38;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #8f1e388c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+            pointer-events: none;
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #8f1e38;
+            box-shadow: 0 0 25px #8f1e388c;
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn .fil0 { fill: #fffdef; }
+
+        /* === СТИЛИ ДЛЯ СТРАНИЦЫ ПРЕПОДАВАТЕЛЕЙ === */
+        .page-header {
+             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/56.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 200px 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .director-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .director-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .director-photo {
+            width: 100%;
+            height: 500px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .director-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .director-info h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 10px;
+        }
+
+        .director-position {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .director-quote {
+            background: #f8f9fa;
+            border-left: 4px solid #8f1e38;
+            padding: 30px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .director-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .staff-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 60px;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .staff-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .staff-photo {
+            width: 100%;
+            height: 300px;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .staff-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .staff-info {
+            padding: 25px;
+        }
+
+        .staff-name {
+            font-size: 22px;
+            color: #8f1e38;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .staff-position {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .staff-bio {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .staff-qualifications {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .staff-qualifications li {
+            padding: 5px 0;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .staff-qualifications li:last-child {
+            border-bottom: none;
+        }
+
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #8f1e38 0%, #a72542 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .stat-item__number {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .stat-item__label {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .cta-section {
+            padding: 80px 0;
+            background: #fff;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА САЙТА ==================== -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="images/ЛОГОТИП1.png" alt="Логотип Академии Хуа Я">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Главная</a></li>
+                    <li><a href="about.html" class="nav__link">Об Академии</a></li>
+                    <li><a href="history.html" class="nav__link">История</a></li>
+                    <li><a href="staff.html" class="nav__link">Преподаватели</a></li>
+                    <li><a href="education.html" class="nav__link">Образование</a></li>
+                    <li><a href="directions.html" class="nav__link">Направления</a></li>
+                    <li><a href="institutes.html" class="nav__link">Институты</a></li>
+                    <li><a href="applicants.html" class="nav__link">Поступающим</a></li>
+                    <li><a href="tuition.html" class="nav__link">Стоимость</a></li>
+                    <li><a href="students.html" class="nav__link">Студентам</a></li>
+                    <li><a href="employees.html" class="nav__link">Сотруднику</a></li>
+                    <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+78001234567" class="phone">8 (800) 123-45-67</a>
+                <span>г. Москва, ул. Китайская, 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Наши преподаватели</h1>
+            <p>Команда высококвалифицированных специалистов, влюблённых в китайский язык и культуру</p>
+        </div>
+    </section>
+
+    <!-- ==================== ДИРЕКТОР АКАДЕМИИ ==================== -->
+    <section class="director-section">
+        <div class="container">
+            <div class="director-grid">
+                <div class="director-photo">
+                    <img src="images/Ван ли минь.jpg" alt="Директор Академии Хуа Я">
+                </div>
+                <div class="director-info">
+                    <h2>Чон Чонгук</h2>
+                    <p class="director-position">Генеральный директор Академии «Хуа Я»</p>
+                    
+                    <div class="director-quote">
+                        «Наша миссия — не просто научить языку, а создание моста между культурами. Каждый преподаватель в нашей команде — это посол китайской культуры, который помогает студентам не только выучить язык, но и понять философию, традиции и менталитет китайского народа.»
+                    </div>
+
+                    <p class="director-text">
+                        Чон Чонгук — выпускник Пекинского университета языка и культуры, кандидат филологических наук. Более 20 лет опыта преподавания китайского языка как иностранного в России и Европе.
+                    </p>
+
+                    <p class="director-text">
+                        Под её руководством Академия «Хуа Я» стала одним из ведущих центров изучения китайского языка в России. Она лично курирует методическую работу и подбор преподавательского состава.
+                    </p>
+
+                    <div style="margin-top: 30px;">
+                        <a href="contacts.html" class="star-btn">
+                            Связаться с директором
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                        <div class="star-btn"; button onclick="toggleMusic()" style="margin-top: 10px;">🎵 Включить музыку</button>
+
+                            <audio id="bgMusic" loop>
+                            <source src="music/bts-heart.mp3" type="audio/mpeg">
+                            </audio>
+
+                            <script>
+                            function toggleMusic() {
+                            var music = document.getElementById('bgMusic');
+                            if (music.paused) {
+                                music.play();
+                            } else {
+                                music.pause();
+                            }
+                            }
+                            </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== КОМАНДА ПРЕПОДАВАТЕЛЕЙ ==================== -->
+    <section class="staff-section">
+        <div class="container">
+            <h2 class="section-title">Наши преподаватели</h2>
+            
+            <div class="staff-grid">
+                <!-- Преподаватель 1 -->
+                <div class="staff-card">
+                    <div class="staff-photo">
+                        <img src="images/71.jpg" alt="RM">
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Ким Намджун</h3>
+                        <p class="staff-position">Старший преподаватель, носитель языка</p>
+                        <p class="staff-bio">
+                            Выпускник Пекинского университета языка и культуры. Более 10 лет опыта преподавания китайского языка как иностранного в России и Европе.
+                        </p>
+                        <ul class="staff-qualifications">
+                            <li>🎓 Магистр филологии (Пекин)</li>
+                            <li>📜 Сертификат HSK 6 (высший уровень)</li>
+                            <li>🏆 Преподаватель года 2023</li>
+                            <li>📚 Автор 3 учебных пособий</li>
+                        </ul>
+                        <a href="contacts.html" class="star-btn">
+                            Записаться на урок
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Преподаватель 2 -->
+                <div class="staff-card">
+                    <div class="staff-photo">
+                        <img src="images/72.jpg" alt="JIN">
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Ким Сокджин</h3>
+                        <p class="staff-position">Преподаватель, носитель языка</p>
+                        <p class="staff-bio">
+                            Специализируется на подготовке к экзаменам HSK. Более 8 лет опыта работы с русскоговорящими студентами.
+                        </p>
+                        <ul class="staff-qualifications">
+                            <li>🎓 Бакалавр педагогики (Шанхай)</li>
+                            <li>📜 Сертификат HSK 6</li>
+                            <li>🏆 95% студентов сдают HSK с первого раза</li>
+                            <li>📚 Эксперт по подготовке к экзаменам</li>
+                        </ul>
+                        <a href="contacts.html" class="star-btn">
+                            Записаться на урок
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Преподаватель 3 -->
+                <div class="staff-card">
+                    <div class="staff-photo">
+                        <img src="images/73.jpg" alt="Мин Юнги">
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Мин Юнги</h3>
+                        <p class="staff-position">Преподаватель, методист</p>
+                        <p class="staff-bio">
+                            Выпускник МГИМО, специализируется на адаптации китайских методик для русскоговорящих студентов.
+                        </p>
+                        <ul class="staff-qualifications">
+                            <li>🎓 Магистр востоковедения (МГИМО)</li>
+                            <li>📜 Сертификат HSK 5</li>
+                            <li>🏆 5 лет опыта преподавания</li>
+                            <li>📚 Разработчик учебных программ</li>
+                        </ul>
+                        <a href="contacts.html" class="star-btn">
+                            Записаться на урок
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Преподаватель 4 -->
+                <div class="staff-card">
+                    <div class="staff-photo">
+                        <img src="images/74.jpg" alt="Чон Хосок">
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Чон Хосок</h3>
+                        <p class="staff-position">Преподаватель, носитель языка</p>
+                        <p class="staff-bio">
+                            Специалист по деловому китайскому языку. Работала в международных компаниях в Пекине и Шанхае.
+                        </p>
+                        <ul class="staff-qualifications">
+                            <li>🎓 Магистр экономики (Пекин)</li>
+                            <li>📜 Сертификат HSK 6</li>
+                            <li>🏆 7 лет опыта в бизнес-среде</li>
+                            <li>📚 Эксперт по деловой переписке</li>
+                        </ul>
+                        <a href="contacts.html" class="star-btn">
+                            Записаться на урок
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Преподаватель 5 -->
+                <div class="staff-card">
+                    <div class="staff-photo">
+                        <img src="images/75.jpg" alt="Пак Чимин">
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Пак Чимин</h3>
+                        <p class="staff-position">Преподаватель, носитель языка</p>
+                        <p class="staff-bio">
+                            Специалист по китайской каллиграфии и культуре. Проводит мастер-классы и культурные мероприятия.
+                        </p>
+                        <ul class="staff-qualifications">
+                            <li>🎓 Магистр искусств (Сиань)</li>
+                            <li>📜 Сертификат HSK 6</li>
+                            <li>🏆 Мастер каллиграфии</li>
+                            <li>📚 Организатор культурных событий</li>
+                        </ul>
+                        <a href="contacts.html" class="star-btn">
+                            Записаться на урок
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Преподаватель 6 -->
+                <div class="staff-card">
+                    <div class="staff-photo">
+                        <img src="images/76.jpg" alt="V">
+                    </div>
+                    <div class="staff-info">
+                        <h3 class="staff-name">Ким Тэхен</h3>
+                        <p class="staff-position">Преподаватель, переводчик</p>
+                        <p class="staff-bio">
+                            Профессиональный переводчик с китайского языка. Более 15 лет опыта работы с делегациями и документами.
+                        </p>
+                        <ul class="staff-qualifications">
+                            <li>🎓 Лингвист-синолог (СПбГУ)</li>
+                            <li>📜 Сертификат HSK 5</li>
+                            <li>🏆 Сертифицированный переводчик</li>
+                            <li>📚 Автор переводов китайской классики</li>
+                        </ul>
+                        <a href="contacts.html" class="star-btn">
+                            Записаться на урок
+                            <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                            <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== СТАТИСТИКА ==================== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-item__number">50+</div>
+                    <div class="stat-item__label">Преподавателей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-item__number">95%</div>
+                    <div class="stat-item__label">Носителей языка</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-item__number">15+</div>
+                    <div class="stat-item__label">Лет опыта</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-item__number">5000+</div>
+                    <div class="stat-item__label">Выпускников</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Хотите учиться у лучших?</h2>
+            <p>Запишитесь на пробный урок и познакомьтесь с нашими преподавателями лично. Мы поможем вам выбрать оптимальную программу обучения.</p>
+            
+            <a href="contacts.html" class="star-btn">
+                Записаться на пробный урок
+                <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== ПОДВАЛ ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h4 class="footer__title">Академия «Хуа Я»</h4>
+                    <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                        Образовательный центр нового поколения. 
+                        Мы открываем двери в Азию для тех, кто хочет развиваться.
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer__title">Обучение</h4>
+                    <ul class="footer__list">
+                        <li><a href="directions.html">Направления подготовки</a></li>
+                        <li><a href="institutes.html">Институты и школы</a></li>
+                        <li><a href="tuition.html">Стоимость обучения</a></li>
+                        <li><a href="applicants.html">Абитуриенту</a></li>
+                        <li><a href="employees.html">Преподавателям</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Студентам</h4>
+                    <ul class="footer__list">
+                        <li><a href="useful_info.html">ЭОР и Портфолио</a></li>
+                        <li><a href="extracurricular.html">Внеучебная деятельность</a></li>
+                        <li><a href="students.html">Расписание</a></li>
+                        <li><a href="history.html">Традиции</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="footer__list">
+                        <li>г. Москва, ул. Китайская, д. 1</li>
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@huaya.ru">info@huaya.ru</a></li>
+                        <li>Пн-Пт: 9:00 - 20:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                &copy; 2024 Академия китайского языка «Хуа Я». Все права защищены. <br>
+                Сайт создан в учебных целях.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

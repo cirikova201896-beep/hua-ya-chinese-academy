@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История Академии | Хуа Я</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* === КНОПКА СО ЗВЁЗДАМИ (как на главной) === */
+        .star-btn {
+            position: relative;
+            padding: 12px 35px;
+            background: #8f1e38;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            border: 3px solid #8f1e38;
+            border-radius: 8px;
+            box-shadow: 0 0 0 #8f1e388c;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .star-btn .star-1,
+        .star-btn .star-2,
+        .star-btn .star-3,
+        .star-btn .star-4,
+        .star-btn .star-5,
+        .star-btn .star-6 {
+            position: absolute;
+            width: 25px;
+            height: auto;
+            filter: drop-shadow(0 0 0 #fffdef);
+            z-index: -5;
+            transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+            pointer-events: none;
+        }
+
+        .star-btn .star-1 { top: 20%; left: 20%; width: 25px; }
+        .star-btn .star-2 { top: 45%; left: 45%; width: 15px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-3 { top: 40%; left: 40%; width: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-4 { top: 20%; left: 40%; width: 8px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-5 { top: 25%; left: 45%; width: 15px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+        .star-btn .star-6 { top: 5%; left: 50%; width: 5px; transition: all 0.8s ease; }
+
+        .star-btn:hover {
+            background: transparent;
+            color: #8f1e38;
+            box-shadow: 0 0 25px #8f1e388c;
+        }
+
+        .star-btn:hover .star-1 {
+            top: -80%; left: -30%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-2 {
+            top: -25%; left: 10%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-3 {
+            top: 55%; left: 25%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-4 {
+            top: 30%; left: 80%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-5 {
+            top: 25%; left: 115%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+        .star-btn:hover .star-6 {
+            top: 5%; left: 60%;
+            filter: drop-shadow(0 0 10px #fffdef);
+            z-index: 2;
+        }
+
+        .star-btn .fil0 { fill: #fffdef; }
+
+        /* === СТИЛИ ДЛЯ СТРАНИЦЫ ИСТОРИИ === */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/фон1.jpg');
+            background-size: 1000px;
+            background-position: center;
+            padding: 200px 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .timeline-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #8f1e38;
+            top: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            width: 50%;
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #8f1e38;
+            border-radius: 50%;
+            top: 0;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .timeline-year {
+            font-size: 32px;
+            font-weight: 900;
+            color: #8f1e38;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .timeline-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        .timeline-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .milestones-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .milestones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .milestone-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .milestone-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: #8f1e38;
+            margin-bottom: 20px;
+        }
+
+        .milestone-text {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .founders-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .founders-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .founders-image {
+            width: 100%;
+            height: 500px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .founders-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .founders-text h2 {
+            font-size: 36px;
+            color: #8f1e38;
+            margin-bottom: 30px;
+        }
+
+        .founders-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .values-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #8f1e38 0%, #a72542 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .values-section h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .value-item {
+            padding: 30px;
+        }
+
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .value-item h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .value-item p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ШАПКА САЙТА ==================== -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="logo">
+                <img src="images/ЛОГОТИП1.png" alt="Логотип Академии Хуа Я">
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a href="index.html" class="nav__link">Главная</a></li>
+                    <li><a href="about.html" class="nav__link">Об Академии</a></li>
+                    <li><a href="history.html" class="nav__link">История</a></li>
+                    <li><a href="staff.html" class="nav__link">Преподаватели</a></li>
+                    <li><a href="education.html" class="nav__link">Образование</a></li>
+                    <li><a href="directions.html" class="nav__link">Направления</a></li>
+                    <li><a href="institutes.html" class="nav__link">Институты</a></li>
+                    <li><a href="applicants.html" class="nav__link">Поступающим</a></li>
+                    <li><a href="tuition.html" class="nav__link">Стоимость</a></li>
+                    <li><a href="students.html" class="nav__link">Студентам</a></li>
+                    <li><a href="employees.html" class="nav__link">Сотруднику</a></li>
+                    <li><a href="contacts.html" class="nav__link">Контакты</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__contacts">
+                <a href="tel:+78001234567" class="phone">8 (800) 123-45-67</a>
+                <span>г. Москва, ул. Китайская, 1</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== -->
+    <section class="page-header">
+        <div class="container">
+            <h1>История Академии «Хуа Я»</h1>
+            <p>Путь от небольшой языковой школы до ведущего образовательного центра по изучению китайского языка и культуры в России</p>
+        </div>
+    </section>
+
+    <!-- ==================== ТАЙМЛАЙН ИСТОРИИ ==================== -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2013</div>
+                    <div class="timeline-content">
+                        <h3>Основание Академии</h3>
+                        <p>Группа энтузиастов-синологов и предпринимателей, вдохновлённых растущим интересом к китайской культуре, основала небольшую языковую школу «Хуа Я» в центре Москвы. Первый набор составил всего 24 студента.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">
+                        <h3>Первые выпускники</h3>
+                        <p>Академия выпустила первых 20 студентов, успешно сдавших экзамен HSK 4. 85% выпускников продолжили обучение в университетах Китая по программе обмена.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2017</div>
+                    <div class="timeline-content">
+                        <h3>Открытие нового кампуса</h3>
+                        <p>Благодаря растущему спросу Академия переехала в просторное здание на улице Китайская, где были оборудованы современные аудитории, медиатека и зона для культурных мероприятий.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-content">
+                        <h3>Партнёрство с вузами Китая</h3>
+                        <p>Подписаны соглашения о сотрудничестве с 15 ведущими университетами Китая, включая Пекинский университет и Университет Цинхуа. Запущена программа двойных дипломов.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-content">
+                        <h3>Запуск онлайн-платформы</h3>
+                        <p>В ответ на вызовы времени Академия запустила собственную онлайн-платформу для дистанционного обучения, которая позволила продолжить обучение более 2000 студентов по всей России.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2026</div>
+                    <div class="timeline-content">
+                        <h3>Признание и награды</h3>
+                        <p>Академия «Хуа Я» признана лучшей языковой школой года по версии Национальной премии в области образования. Количество выпускников превысило 5000 человек.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ВЕХИ РАЗВИТИЯ ==================== -->
+    <section class="milestones-section">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 36px; color: #8f1e38; margin-bottom: 20px;">Наши достижения</h2>
+            <p style="text-align: center; font-size: 18px; color: #666; max-width: 800px; margin: 0 auto;">За более чем 10 лет работы мы достигли значительных результатов в области образования и культурного обмена</p>
+            
+            <div class="milestones-grid">
+                <div class="milestone-card">
+                    <div class="milestone-number">5000+</div>
+                    <div class="milestone-text">Выпускников, успешно освоивших программы Академии и продолжающих своё развитие</div>
+                </div>
+
+                <div class="milestone-card">
+                    <div class="milestone-number">98%</div>
+                    <div class="milestone-text">Студентов рекомендуют Академию друзьям и коллегам по результатам независимого опроса</div>
+                </div>
+
+                <div class="milestone-card">
+                    <div class="milestone-number">25+</div>
+                    <div class="milestone-text">Университетов-партнёров в Китае, принимающих наших студентов по программе обмена</div>
+                </div>
+
+                <div class="milestone-card">
+                    <div class="milestone-number">150+</div>
+                    <div class="milestone-text">Квалифицированных преподавателей-носителей языка работают в нашей Академии</div>
+                </div>
+
+                <div class="milestone-card">
+                    <div class="milestone-number">95%</div>
+                    <div class="milestone-text">Выпускников успешно сдают экзамен HSK на уровень выше ожидаемого</div>
+                </div>
+
+                <div class="milestone-card">
+                    <div class="milestone-number">10+</div>
+                    <div class="milestone-text">Лет успешной работы на рынке образовательных услуг России</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ОСНОВАТЕЛИ ==================== -->
+    <section class="founders-section">
+        <div class="founders-content">
+            <div class="founders-image">
+                <img src="images/8888.jpg" alt="Основатели Академии Хуа Я">
+            </div>
+            <div class="founders-text">
+                <h2>Наши основатели</h2>
+                <p>Академия «Хуа Я» была основана группой выдающихся синологов и предпринимателей, объединённых общей мечтой — сделать качественное образование по китайскому языку доступным для каждого желающего в России.</p>
+                <p>Наши основатели сами прошли путь изучения китайского языка и понимают все сложности, с которыми сталкиваются студенты. Именно поэтому мы создали методику, которая учитывает особенности русскоговорящих учащихся и позволяет достичь результатов в кратчайшие сроки.</p>
+                <p>Сегодня Академия продолжает развиваться, сохраняя верность своим корням и первоначальным принципам: качество образования, индивидуальный подход и глубокое погружение в культуру.</p>
+                
+                <div style="margin-top: 30px;">
+                    <a href="about.html" class="star-btn">
+                        Узнать больше об Академии
+                        <div class="star-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                        <div class="star-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.11 815.53"><path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"/></svg></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ЦЕННОСТИ ==================== -->
+   <section class="values-section">
+    <div class="container">
+        <h2 class="section-title">Наши ценности сквозь годы</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🎓</div>
+                <h3 class="value-title">Качество образования</h3>
+                <p class="value-text">Мы никогда не компромиссируем с качеством. Наши программы постоянно обновляются и совершенствуются</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">Индивидуальный подход</h3>
+                <p class="value-text">Каждый студент уникален, и мы находим подход к каждому, учитывая его цели и особенности обучения</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🌏</div>
+                <h3 class="value-title">Культурный обмен</h3>
+                <p class="value-text">Мы не просто учим языку — мы открываем двери в удивительный мир китайской культуры и традиций</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ==================== ПОДВАЛ ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h4 class="footer__title">Академия «Хуа Я»</h4>
+                    <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                        Образовательный центр нового поколения. 
+                        Мы открываем двери в Азию для тех, кто хочет развиваться.
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                        <div style="width: 30px; height: 30px; background: #333; border-radius: 50%;"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer__title">Обучение</h4>
+                    <ul class="footer__list">
+                        <li><a href="directions.html">Направления подготовки</a></li>
+                        <li><a href="institutes.html">Институты и школы</a></li>
+                        <li><a href="tuition.html">Стоимость обучения</a></li>
+                        <li><a href="applicants.html">Абитуриенту</a></li>
+                        <li><a href="employees.html">Преподавателям</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Студентам</h4>
+                    <ul class="footer__list">
+                        <li><a href="useful_info.html">ЭОР и Портфолио</a></li>
+                        <li><a href="extracurricular.html">Внеучебная деятельность</a></li>
+                        <li><a href="students.html">Расписание</a></li>
+                        <li><a href="history.html">Традиции</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="footer__list">
+                        <li>г. Москва, ул. Китайская, д. 1</li>
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@huaya.ru">info@huaya.ru</a></li>
+                        <li>Пн-Пт: 9:00 - 20:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                &copy; 2026 Академия китайского языка «Хуа Я». Все права защищены. <br>
+                Сайт создан в учебных целях.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
